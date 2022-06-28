@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_15_025402) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_28_151655) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -22,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_15_025402) do
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
