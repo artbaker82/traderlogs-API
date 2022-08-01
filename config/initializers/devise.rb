@@ -19,6 +19,8 @@ Devise.setup do |config|
     jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
   end
 
+  config.navigational_formats = []
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'

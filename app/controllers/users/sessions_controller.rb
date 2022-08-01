@@ -12,6 +12,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
+    puts "+++++++++++#{current_user.inspect}"
     log_out_success && return if current_user
 
     log_out_failure
