@@ -27,8 +27,18 @@ RSpec.describe 'Users', type: :request do
 
     context "with invalid params" do
       
-      it 'has no email' do
+      it 'has no attributes' do
         post '/users', params: { user: { email: '', password: ''} }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'has no password confirmation' do 
+        post '/users', params: { user: { email: 'test@gmail.com', password: 'test', password_confirmation: ''} }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'has mismatching password and password confirmation' do
+        post '/users', params: { user: { email: 'test@gmail.com', password: 'test', password_confirmation: 'tes'} }
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
