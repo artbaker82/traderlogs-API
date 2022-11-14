@@ -1,8 +1,11 @@
 class Api::V1::TradingSystemsController < ApplicationController
+  # skip_before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_trading_system, only: %i[ show update destroy ]
 
   # GET /trading_systems
   def index
+    p current_user
     @trading_systems = TradingSystem.all
 
     render json: @trading_systems

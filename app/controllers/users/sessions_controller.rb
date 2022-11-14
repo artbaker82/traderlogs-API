@@ -1,5 +1,6 @@
 # app/controllers/users/sessions_controller.rb
 class Users::SessionsController < Devise::SessionsController
+  before_action :authenticate_user!
   respond_to :json
 
   private
@@ -12,8 +13,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
-    puts "+++++++++++#{current_user.inspect}"
-    log_out_success && return if current_user
+    log_out_success && return unless current_user
 
     log_out_failure
   end
